@@ -3,14 +3,20 @@ import './App.css'
 import Navbar from './components/navbar/Navbar'
 import Home from './components/home/Home'
 import Footer from './components/footer/Footer'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 
 function App() {
   
   return (
     <>
-      <Navbar/>
-      <Home/>
-      <Footer/>
+      <Navbar />
+      <Home /> 
+      <Register /> 
+      <Login />
+      <Footer />
+
+
     </>
   )
 }
