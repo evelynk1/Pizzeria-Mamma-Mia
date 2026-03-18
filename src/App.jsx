@@ -6,19 +6,21 @@ import Footer from './components/footer/Footer'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 
-function App() {
-  
+const App = () => {
+  const [view, setView] = useState("home"); // estado para controlar la vista
+
   return (
-    <>
-      <Navbar />
-      <Home /> 
-      <Register /> 
-      <Login />
+    <div>
+      <Navbar setView={setView} /> 
+      
+      {view === "home" && <Home />}
+      {view === "register" && <Register />}
+      {view === "login" && <Login />}
+      
       <Footer />
+    </div>
+  );
+};
 
+export default App;
 
-    </>
-  )
-}
-
-export default App
