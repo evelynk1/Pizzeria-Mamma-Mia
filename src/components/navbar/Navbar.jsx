@@ -1,7 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = ({setView}) => {
+  // estado para simular si esta logueado
   const [token, setToken] = useState(false);
   const total = 25000;
 
@@ -13,31 +14,47 @@ const Navbar = () => {
           <i className="bi bi-pizza"></i> Pizzería Mamma Mia!
         </a>
 
-        <button className="btn btn-outline-light">
+        {/* cambia la vista a home */}
+        <button 
+          className="btn btn-outline-light"
+          onClick={() => setView("home")}
+        >
           <i className="bi bi-house"></i> Home
         </button>
 
         {token ? (
           <>
+            {/* si esta logueado aparece profile */}
             <button className="btn btn-outline-light">
               <i className="bi bi-person-circle"></i> Profile
             </button>
+
+            {/* cambia el token a false y se vuelva a home */}
             <button
               className="btn btn-outline-light"
-              onClick={() => setToken(false)}
+              onClick={() => {
+                setToken(false);
+                setView("home"); //  volver a Home al hacer logout
+              }}
             >
               <i className="bi bi-box-arrow-right"></i> Logout
             </button>
           </>
         ) : (
           <>
+            {/* Si NO está logueado, aparece Login */}
             <button
               className="btn btn-outline-light"
-              onClick={() => setToken(true)}
+              onClick={() => setView("login")}
             >
               <i className="bi bi-box-arrow-in-right"></i> Login
             </button>
-            <button className="btn btn-outline-light">
+
+            {/* Y también Register */}
+            <button
+              className="btn btn-outline-light"
+              onClick={() => setView("register")}
+            >
               <i className="bi bi-person-plus"></i> Register
             </button>
           </>
@@ -55,3 +72,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
