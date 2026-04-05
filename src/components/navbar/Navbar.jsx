@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
-  const [token, setToken] = useState(false);
+  const [token, setToken] = useState(false); // simulación login
   const total = 25000;
 
   return (
@@ -15,13 +15,13 @@ const Navbar = () => {
           <i className="bi bi-pizza"></i> Pizzería Mamma Mia!
         </Link>
 
-        <Link className="btn btn-outline-light" to="/">
+        <Link to="/" className="btn btn-outline-light">
           <i className="bi bi-house"></i> Home
         </Link>
 
         {token ? (
           <>
-            <Link className="btn btn-outline-light" to="/profile">
+            <Link to="/profile" className="btn btn-outline-light">
               <i className="bi bi-person-circle"></i> Profile
             </Link>
 
@@ -34,11 +34,11 @@ const Navbar = () => {
           </>
         ) : (
           <>
-            <Link className="btn btn-outline-light" to="/login">
+            <Link to="/login" className="btn btn-outline-light">
               <i className="bi bi-box-arrow-in-right"></i> Login
             </Link>
 
-            <Link className="btn btn-outline-light" to="/register">
+            <Link to="/register" className="btn btn-outline-light">
               <i className="bi bi-person-plus"></i> Register
             </Link>
           </>
