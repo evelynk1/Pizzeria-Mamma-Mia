@@ -1,4 +1,4 @@
-import { pizzaCart } from "../pizzas";
+import { pizzaCart } from "../../pizzas";
 import { useState } from "react";
 
 const Cart = () => {
@@ -15,7 +15,7 @@ const Cart = () => {
     const disminuirCantidad = (id) => {
         setCart(cart.map((pizza) => 
             pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
-        ).filter(pizza => pizza.count >= 0)); 
+        ).filter(pizza => pizza.count > 0)); 
     };
 
 
