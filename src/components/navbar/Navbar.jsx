@@ -1,7 +1,7 @@
-import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ setView }) => {
+const Navbar = () => {
   const [token, setToken] = useState(false);
   const total = 25000;
 
@@ -11,57 +11,45 @@ const Navbar = ({ setView }) => {
       {/* IZQUIERDA */}
       <div className="d-flex align-items-center gap-3">
         
-        <a className="navbar-brand fw-bold me-3" href="#">
+        <Link className="navbar-brand fw-bold me-3" to="/">
           <i className="bi bi-pizza"></i> Pizzería Mamma Mia!
-        </a>
+        </Link>
 
-        <button
-          className="btn btn-outline-light"
-          onClick={() => setView("home")}
-        >
+        <Link className="btn btn-outline-light" to="/">
           <i className="bi bi-house"></i> Home
-        </button>
+        </Link>
 
         {token ? (
           <>
-            <button className="btn btn-outline-light">
+            <Link className="btn btn-outline-light" to="/profile">
               <i className="bi bi-person-circle"></i> Profile
-            </button>
+            </Link>
 
             <button
               className="btn btn-outline-light"
-              onClick={() => {
-                setToken(false);
-                setView("home");
-              }}
+              onClick={() => setToken(false)}
             >
               <i className="bi bi-box-arrow-right"></i> Logout
             </button>
           </>
         ) : (
           <>
-            <button
-              className="btn btn-outline-light"
-              onClick={() => setView("login")}
-            >
+            <Link className="btn btn-outline-light" to="/login">
               <i className="bi bi-box-arrow-in-right"></i> Login
-            </button>
+            </Link>
 
-            <button
-              className="btn btn-outline-light"
-              onClick={() => setView("register")}
-            >
+            <Link className="btn btn-outline-light" to="/register">
               <i className="bi bi-person-plus"></i> Register
-            </button>
+            </Link>
           </>
         )}
       </div>
 
       {/* DERECHA */}
       <div className="ms-auto">
-        <button className="btn btn-info fw-bold px-3">
+        <Link to="/cart" className="btn btn-info fw-bold px-3">
           <i className="bi bi-cart"></i> Total: ${total.toLocaleString()}
-        </button>
+        </Link>
       </div>
     </nav>
   );

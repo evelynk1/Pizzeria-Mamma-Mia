@@ -1,29 +1,36 @@
-import { useState } from 'react'
 import './App.css'
 import Navbar from './components/navbar/Navbar'
-// import Home from './components/home/Home'
 import Footer from './components/footer/Footer'
-// import Cart from './components/cart/Cart'
-// import Login from './components/auth/Login'
-// import Register from './components/auth/Register'
-import Pizza from './components/pizza/Pizza'
+import { Routes, Route } from 'react-router-dom'
+
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Cart from './pages/Cart';
+import Pizza from './pages/Pizza';
+import Profile from './pages/Profile';
+import NotFound from './pages/NotFound';
+
 
 function App() {
-  const [view, setView] = useState("home");
-
   return (
     <>
-      <Navbar setView={setView} />
-      {/* {view === "home" && <Home />} */}
-      {/* {view === "register" && <Register />}
-      {view === "login" && <Login />} */}
-      {/* <Cart /> */}
-      <Pizza />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/pizza/p001" element={<Pizza />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
       <Footer />
     </>
-  );
+  )
 }
 
 export default App;
+
 
 

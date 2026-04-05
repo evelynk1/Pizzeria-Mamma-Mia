@@ -1,15 +1,16 @@
+/* =======================
+   GENERALES
+======================= */
 
 .border-naranjo {
   border: 2px solid #ff7b00;
   border-radius: 12px;
 }
 
-
 .card-img-top {
   height: 200px;
   object-fit: cover;
 }
-
 
 .card {
   transition: all 0.3s ease;
@@ -20,10 +21,14 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
 
-
 .card .btn {
   width: 48%;
 }
+
+/* =======================
+   HEADER
+======================= */
+
 .header-bg {
   background-image: url("/img/Header.jpg");
   background-size: cover;
@@ -37,59 +42,81 @@
   justify-content: center;
 }
 
-/* NAVBAR*/
+/* =======================
+   NAVBAR
+======================= */
+
 .navbar {
   font-size: 14px;
 }
-
 
 .navbar .btn {
   border-radius: 8px;
   transition: all 0.2s ease;
 }
 
-
 .navbar .btn:hover {
   transform: translateY(-2px);
 }
 
-/* LOGO */
 .navbar-brand {
   letter-spacing: 0.5px;
 }
-/* FORMULARIOS MÁS BONITOS */
+
+/* =======================
+   FORMULARIOS
+======================= */
+
 .form-control {
   border-radius: 8px;
   padding: 10px;
 }
 
-/* BOTÓN */
 .btn {
   border-radius: 8px;
 }
-/* login */
-.login-container {
-  height: 100vh;
+
+/* =======================
+   AUTH (LOGIN + REGISTER)
+======================= */
+
+.auth-container {
+  min-height: 100vh;
   background: url("https://images.unsplash.com/photo-1513104890138-7c749659a591") no-repeat center center/cover;
   position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.login-container::before {
+.auth-container::before {
   content: "";
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.6);
 }
 
-.login-box {
+/* 🔥 ESTILO ORIGINAL RESTAURADO */
+.auth-box {
   position: relative;
   width: 100%;
   max-width: 350px;
   padding: 30px;
   background: rgba(0, 0, 0, 0.4);
   border-radius: 10px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
+  color: white;
 }
+
+/* OPCIONAL: Register un poco más ancho */
+.auth-box.register {
+  max-width: 420px;
+}
+
+/* =======================
+   INPUTS OSCUROS
+======================= */
 
 .input-dark {
   background: transparent;
@@ -106,37 +133,5 @@
   background: transparent;
   color: white;
   box-shadow: none;
-  border-bottom: 1px solid white;
-}
-/* Regritro */
-.login-container {
-  min-height: 80vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.login-box {
-  background: #111;
-  padding: 40px;
-  border-radius: 12px;
-  width: 100%;
-  max-width: 400px;
-  color: white;
-}
-
-.input-dark {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #aaa;
-  color: white;
-}
-
-.input-dark::placeholder {
-  color: #aaa;
-}
-
-.input-dark:focus {
-  outline: none;
   border-bottom: 1px solid white;
 }

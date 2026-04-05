@@ -1,4 +1,4 @@
-import { pizzaCart } from "../../pizzas";
+import { pizzaCart } from "../pizzas";
 import { useState } from "react";
 
 const Cart = () => {
