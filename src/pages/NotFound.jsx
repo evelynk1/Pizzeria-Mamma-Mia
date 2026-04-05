@@ -1,9 +1,24 @@
+import { Link } from "react-router-dom";
+
 const NotFound = () => {
   return (
-    <div className="text-center my-5">
-      <h1>404 - Página no encontrada</h1>
-      <p>La ruta que intentas visitar no existe.</p>
-      <a href="/" className="btn btn-dark mt-3">Volver al inicio</a>
+    <div className="notfound-container">
+
+      <div className="notfound-box text-center">
+
+        <h1 className="notfound-404">404</h1>
+
+        <h2 className="mb-3">Ups... te perdiste 🍕</h2>
+
+        <p className="mb-4 text-light">
+          La página que buscas no existe o fue movida.
+        </p>
+
+        <Link to="/" className="btn btn-warning fw-bold px-4">
+          Volver al inicio
+        </Link>
+
+      </div>
     </div>
   );
 };
