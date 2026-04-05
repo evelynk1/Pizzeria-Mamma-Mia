@@ -2,27 +2,64 @@ import React from "react";
 import Header from "../header/Header";
 import CardPizza from "../card/CardPizza";
 import { pizzas } from "../../pizzas";
+import { useEffect, useState } from "react";
 const Home = () => {
+  const [pizzas, setPizzas] = useState([]);
+
+  useEffect(() => {
+    // Consumir la API al montar el componente
+    const fetchPizzas = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/api/pizzas");
+        const data = await response.json();
+        setPizzas(data);
+      } catch (error) {
+        console.error("Error al cargar las pizzas:", error);
+      }
+    };
+
+    fetchPizzas();
+  }, []);
+
   return (
-    <>
-      <Header image={Header} />
-      <div className="container my-5">
-        <div className="row g-4">
-          {pizzas.map((el) => (
-            <div className="col-12 col-md-4" key={el.id}>
-              <CardPizza
-                name={el.name}
-                price={el.price}
-                ingredients={el.ingredients}
-                img={el.img}
-                descripcion={el.desc}
-              />
-            </div>
-          ))}
-        </div>  
+    <div className="container mt-4">
+      <h2 className="mb-4">Nuestras Pizzas</h2>
+      <div className="row">
+        {pizzas.map((pizza) => (
+          <div className="col-md-4" key={pizza.id}>
+            <CardPizza
+              name={pizza.name}
+              price={pizza.price}
+              ingredients={pizza.ingredients}
+              img={pizza.img}
+            />
+          </div>
+        ))}
       </div>
-    </>
+    </div>
   );
+
+  // ===== Hito 3 ====
+  // return (
+  //   <>
+  //     <Header image={Header} />
+  //     <div className="container my-5">
+  //       <div className="row g-4">
+  //         {pizzas.map((el) => (
+  //           <div className="col-12 col-md-4" key={el.id}>
+  //             <CardPizza
+  //               name={el.name}
+  //               price={el.price}
+  //               ingredients={el.ingredients}
+  //               img={el.img}
+  //               descripcion={el.desc}
+  //             />
+  //           </div>
+  //         ))}
+  //       </div>  
+  //     </div>
+  //   </>
+  // );
 
   // return (
   //   <div className="container mt-4">
