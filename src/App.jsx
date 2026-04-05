@@ -3,8 +3,8 @@ import './App.css'
 import Navbar from './components/navbar/Navbar'
 import Home from './components/home/Home'
 import Footer from './components/footer/Footer'
-import Login from './components/auth/Login'
-import Register from './components/auth/Register'
+// import Login from './components/auth/Login'
+// import Register from './components/auth/Register'
 
 function App() {
   const [view, setView] = useState("home");
@@ -13,8 +13,8 @@ function App() {
     <>
       <Navbar setView={setView} />
       {view === "home" && <Home />}
-      {view === "register" && <Register />}
-      {view === "login" && <Login />}
+      {/* {view === "register" && <Register />}
+      {view === "login" && <Login />} */}
       <Footer />
     </>
   );
