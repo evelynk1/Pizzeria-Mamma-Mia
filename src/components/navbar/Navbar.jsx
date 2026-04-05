@@ -1,21 +1,21 @@
 import React from "react";
 import { useState } from "react";
 
-const Navbar = ({setView}) => {
-  // estado para simular si esta logueado
+const Navbar = ({ setView }) => {
   const [token, setToken] = useState(false);
   const total = 25000;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-      {/* Logo + botones juntos */}
-      <div className="d-flex align-items-center gap-2">
-        <a className="navbar-brand" href="#">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 py-3 shadow-sm">
+      
+      {/* IZQUIERDA */}
+      <div className="d-flex align-items-center gap-3">
+        
+        <a className="navbar-brand fw-bold me-3" href="#">
           <i className="bi bi-pizza"></i> Pizzería Mamma Mia!
         </a>
 
-        {/* cambia la vista a home */}
-        <button 
+        <button
           className="btn btn-outline-light"
           onClick={() => setView("home")}
         >
@@ -24,17 +24,15 @@ const Navbar = ({setView}) => {
 
         {token ? (
           <>
-            {/* si esta logueado aparece profile */}
             <button className="btn btn-outline-light">
               <i className="bi bi-person-circle"></i> Profile
             </button>
 
-            {/* cambia el token a false y se vuelva a home */}
             <button
               className="btn btn-outline-light"
               onClick={() => {
                 setToken(false);
-                setView("home"); //  volver a Home al hacer logout
+                setView("home");
               }}
             >
               <i className="bi bi-box-arrow-right"></i> Logout
@@ -42,7 +40,6 @@ const Navbar = ({setView}) => {
           </>
         ) : (
           <>
-            {/* Si NO está logueado, aparece Login */}
             <button
               className="btn btn-outline-light"
               onClick={() => setView("login")}
@@ -50,7 +47,6 @@ const Navbar = ({setView}) => {
               <i className="bi bi-box-arrow-in-right"></i> Login
             </button>
 
-            {/* Y también Register */}
             <button
               className="btn btn-outline-light"
               onClick={() => setView("register")}
@@ -61,10 +57,10 @@ const Navbar = ({setView}) => {
         )}
       </div>
 
-      {/* Botón carrito al extremo derecho */}
+      {/* DERECHA */}
       <div className="ms-auto">
-        <button className="btn btn-outline-info">
-          <i className="bi bi-cart"></i> Total:${total.toLocaleString()}
+        <button className="btn btn-info fw-bold px-3">
+          <i className="bi bi-cart"></i> Total: ${total.toLocaleString()}
         </button>
       </div>
     </nav>
@@ -72,4 +68,3 @@ const Navbar = ({setView}) => {
 };
 
 export default Navbar;
-

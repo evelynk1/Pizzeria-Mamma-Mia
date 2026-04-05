@@ -1,19 +1,12 @@
 import React from "react";
+
 const Header = () => {
   return (
     <header
-      className="text-center text-light py-5"
-      style={{
-        backgroundImage: `url(/img/Header.jpg)`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundColor: "rgba(0, 0, 0, 0.5)",
-        backgroundBlendMode: "darken",
-        minHeight: "300px",
-      }}
+      className="text-center text-light py-5 header-bg"
     >
-      <h1>¡Pizzería Mamma Mia!</h1>
-      <p>¡Tenemos las mejores pizzas que podrás encontrar!</p>
+      <h1 className="fw-bold">¡Pizzería Mamma Mia!</h1>
+      <p className="fs-5">¡Tenemos las mejores pizzas que podrás encontrar!</p>
     </header>
   );
 };

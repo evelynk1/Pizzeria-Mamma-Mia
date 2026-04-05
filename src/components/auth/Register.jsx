@@ -1,13 +1,11 @@
 import { useState } from "react";
 
-// se define los estados para guardar lo que es el usuario ingresa
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
 
-//   aqui se mostraran los mensajes de error o exito
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -28,30 +26,46 @@ const Register = () => {
   };
 
   return (
-    <div>
-      <h2>Registro</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <form onSubmit={handleSubmit} className="login-box">
+
+        <h2 className="text-center mb-4">Registro</h2>
+
         <input
           type="email"
           placeholder="Email"
+          className="form-control input-dark mb-3"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
+
         <input
           type="password"
           placeholder="Contraseña"
+          className="form-control input-dark mb-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+
         <input
           type="password"
           placeholder="Confirmar contraseña"
+          className="form-control input-dark mb-4"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
-        <button type="submit">Registrar</button>
+
+        <button type="submit" className="btn btn-light w-100">
+          Registrarse
+        </button>
+
+        {message && (
+          <p className="mt-3 text-center fw-bold text-danger">
+            {message}
+          </p>
+        )}
+
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 };
