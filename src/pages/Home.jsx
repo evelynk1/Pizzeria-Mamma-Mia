@@ -3,11 +3,18 @@ import Header from "../components/header/Header";
 import CardPizza from "../components/card/CardPizza";
 import { pizzas } from "../pizzas";
 import { useEffect, useState } from "react";
+
+
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
+
 const Home = () => {
   const [pizzas, setPizzas] = useState([]);
 
+  /* usamos el context */
+  const { addToCart } = useContext(CartContext);
+
   useEffect(() => {
-    // Consumir la API al montar el componente
     const fetchPizzas = async () => {
       try {
         const response = await fetch("http://localhost:5000/api/pizzas");
@@ -27,12 +34,28 @@ const Home = () => {
       <div className="row">
         {pizzas.map((pizza) => (
           <div className="col-md-4" key={pizza.id}>
+            
+            {/* código  sin carrito) */}
+            {/*
             <CardPizza
               name={pizza.name}
               price={pizza.price}
               ingredients={pizza.ingredients}
               img={pizza.img}
             />
+            */}
+
+            {/* agregamos funcin para el carrito */}
+            <CardPizza
+              name={pizza.name}
+              price={pizza.price}
+              ingredients={pizza.ingredients}
+              img={pizza.img}
+
+              /* la función passa al componente */
+              onAdd={() => addToCart(pizza)}
+            />
+
           </div>
         ))}
       </div>

@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
 const Pizza = () => {
   const [info, setInfo] = useState(null);
+
+  
+  const { addToCart } = useContext(CartContext);
 
   const consultarApi = async () => {
     try {
@@ -69,15 +74,32 @@ const Pizza = () => {
                 <h3 className="text-danger fw-bold mb-0">
                   ${info.price.toLocaleString()}
                 </h3>
+
                 <div className="d-flex justify-content-between">
-                  <button className="btn btn-outline-dark">
-                    <i className="bi bi-eye"></i> Ver más
-                  </button>
+
+                  
+                  {/*
                   <button className="btn btn-dark">
                     <i className="bi bi-cart-plus"></i> Añadir
                   </button>
+                  */}
+
+                  
+                  <button className="btn btn-outline-dark">
+                    <i className="bi bi-eye"></i> Ver más
+                  </button>
+
+                 
+                  <button
+                    className="btn btn-dark"
+                    onClick={() => addToCart(info)} // usamos el context
+                  >
+                    <i className="bi bi-cart-plus"></i> Añadir
+                  </button>
+
                 </div>
               </div>
+
             </div>
           </div>
         </div>

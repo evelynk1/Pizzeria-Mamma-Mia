@@ -1,25 +1,42 @@
 import { pizzaCart } from "../pizzas";
 import { useState } from "react";
 
-const Cart = () => {
-    const [cart, setCart] = useState(pizzaCart);
+/* 🔥 NUEVO */
+import { useContext } from "react";
+import { CartContext } from "../context/CartContext";
 
-   
+const Cart = () => {
+
+    // const [cart, setCart] = useState(pizzaCart);
+
+    const { cart, total, addToCart, removeFromCart } = useContext(CartContext);
+
+    /*
     const aumentarCantidad = (id) => {
         setCart(cart.map((pizza) => 
             pizza.id === id ? { ...pizza, count: pizza.count + 1 } : pizza
         ));
     };
+    */
+    const aumentarCantidad = (pizza) => {
+        addToCart(pizza);
+    };
 
-  
+    /*
     const disminuirCantidad = (id) => {
         setCart(cart.map((pizza) => 
             pizza.id === id ? { ...pizza, count: pizza.count - 1 } : pizza
         ).filter(pizza => pizza.count > 0)); 
     };
+    */
 
+    const disminuirCantidad = (id) => {
+        removeFromCart(id);
+    };
 
+    /*
     const total = cart.reduce((acc, p) => acc + (p.price * p.count), 0);
+    */
 
     return (
         <div className="container mt-5" style={{ maxWidth: '600px' }}>
@@ -33,14 +50,22 @@ const Cart = () => {
                     </div>
                     <div className="d-flex align-items-center">
                         <span className="me-3 fw-bold">${el.price.toLocaleString()}</span>
+    
+                        <button 
+                            className="btn btn-outline-danger btn-sm px-2" 
+                            onClick={() => disminuirCantidad(el.id)}
+                        >
+                            -
+                        </button>
                         
+                        <span className="mx-3 fw-bold">{el.quantity}</span>
                         
-                        <button className="btn btn-outline-danger btn-sm px-2" onClick={() => disminuirCantidad(el.id)}>-</button>
-                        
-                        <span className="mx-3 fw-bold">{el.count}</span>
-                        
-                        
-                        <button className="btn btn-outline-primary btn-sm px-2" onClick={() => aumentarCantidad(el.id)}>+</button>
+                        <button 
+                            className="btn btn-outline-primary btn-sm px-2" 
+                            onClick={() => aumentarCantidad(el)}
+                        >
+                            +
+                        </button>
                     </div>
                 </div>
             ))}
