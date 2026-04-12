@@ -3,12 +3,21 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
+
+  // hook para redirigir
   const navigate = useNavigate();
+
+  // obtenemos datos del usuario y logout
   const { user, logout } = useContext(UserContext);
 
+  /*
+  =====================================================
+  FUNCION LOGOUT
+  =====================================================
+  */
   const handleLogout = () => {
-    logout();
-    navigate("/");
+    logout();        // limpia token y usuario
+    navigate("/");   // redirige al home
   };
 
   return (
@@ -17,12 +26,17 @@ const Profile = () => {
 
         <h2 className="mb-4">Perfil</h2>
 
+        {/* etiqueta */}
         <p className="mb-3">
           <strong>Email:</strong>
         </p>
 
-        <p className="mb-4 text-warning">{user?.email}</p>
+        {/* mostramos email del usuario */}
+        <p className="mb-4 text-warning">
+          {user?.email} 
+        </p>
 
+        {/* botón logout */}
         <button
           className="btn btn-danger w-100"
           onClick={handleLogout}

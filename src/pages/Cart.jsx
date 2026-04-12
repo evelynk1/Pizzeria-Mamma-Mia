@@ -16,6 +16,9 @@ const Cart = () => {
     /*  obtenemos el token */
     const { token } = useContext(UserContext);
 
+    /* estado para mensaje de compra */
+    const [mensaje, setMensaje] = useState("");
+
     /*
     const aumentarCantidad = (id) => {
         setCart(cart.map((pizza) => 
@@ -42,6 +45,39 @@ const Cart = () => {
     /*
     const total = cart.reduce((acc, p) => acc + (p.price * p.count), 0);
     */
+
+    /*
+    =====================================================
+    FUNCION PARA ENVIAR COMPRA AL BACKEND
+    =====================================================
+    */
+    const handleCheckout = async () => {
+        try {
+            const response = await fetch("http://localhost:5000/api/checkouts", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+
+                    /* enviamos el token */
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({ cart }), // enviamos el carrito
+            });
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || "Error en la compra");
+            }
+
+            /* mensaje de éxito */
+            setMensaje("Compra realizada con éxito");
+
+        } catch (error) {
+            console.error(error);
+            setMensaje("Error al procesar la compra");
+        }
+    };
 
     return (
         <div className="container mt-5" style={{ maxWidth: '600px' }}>
@@ -78,13 +114,17 @@ const Cart = () => {
             <div className="mt-4">
                 <h2 className="fw-bold">Total: ${total.toLocaleString()}</h2>
 
-                {/* Si NO hay token -botón deshabilitado */}
+                {/* Si NO hay token - botón deshabilitado */}
                 <button 
                     className="btn btn-dark mt-2 px-4"
                     disabled={!token}
+                    onClick={handleCheckout} // ejecuta la compra
                 >
                     Pagar
                 </button>
+
+                {/* mensaje de resultado */}
+                {mensaje && <p className="mt-3">{mensaje}</p>}
 
             </div>
         </div>
