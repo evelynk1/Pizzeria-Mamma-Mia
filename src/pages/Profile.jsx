@@ -1,18 +1,13 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Profile = () => {
   const navigate = useNavigate();
-
-  // Simulación de usuario 
-  const user = {
-    email: "usuario@email.com",
-  };
+  const { user, logout } = useContext(UserContext);
 
   const handleLogout = () => {
-    //  limpiar token o estado global
-    alert("Sesión cerrada");
-
-    // Redirige al home
+    logout();
     navigate("/");
   };
 
@@ -26,7 +21,7 @@ const Profile = () => {
           <strong>Email:</strong>
         </p>
 
-        <p className="mb-4 text-warning">{user.email}</p>
+        <p className="mb-4 text-warning">{user?.email}</p>
 
         <button
           className="btn btn-danger w-100"

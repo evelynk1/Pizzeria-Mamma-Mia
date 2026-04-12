@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [mensaje, setMensaje] = useState("");
   const [tipo, setTipo] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { login } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMensaje("");
@@ -24,8 +29,18 @@ const Login = () => {
       return;
     }
 
-    setMensaje("Login exitoso");
-    setTipo("success");
+    try {
+      setSubmitting(true);
+      await login({ email, password });
+      setMensaje("Login exitoso");
+      setTipo("success");
+      navigate("/profile");
+    } catch (error) {
+      setMensaje(error.message);
+      setTipo("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -51,8 +66,8 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <button type="submit" className="btn btn-light w-100">
-            LOGIN
+          <button type="submit" className="btn btn-light w-100" disabled={submitting}>
+            {submitting ? "Ingresando..." : "LOGIN"}
           </button>
         </form>
 

@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -6,8 +8,11 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const [tipo, setTipo] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const { register } = useContext(UserContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setMessage("");
@@ -31,8 +36,18 @@ const Register = () => {
       return;
     }
 
-    setMessage("Registro exitoso");
-    setTipo("success");
+    try {
+      setSubmitting(true);
+      await register({ email, password });
+      setMessage("Registro exitoso");
+      setTipo("success");
+      navigate("/profile");
+    } catch (error) {
+      setMessage(error.message);
+      setTipo("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -66,8 +81,8 @@ const Register = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
 
-          <button type="submit" className="btn btn-light w-100">
-            Registrarse
+          <button type="submit" className="btn btn-light w-100" disabled={submitting}>
+            {submitting ? "Registrando..." : "Registrarse"}
           </button>
         </form>
 

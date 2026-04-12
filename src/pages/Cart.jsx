@@ -1,15 +1,20 @@
 import { pizzaCart } from "../pizzas";
 import { useState } from "react";
 
-/* 🔥 NUEVO */
 import { useContext } from "react";
 import { CartContext } from "../context/CartContext";
+
+/*importar UserContext */
+import { UserContext } from "../context/UserContext";
 
 const Cart = () => {
 
     // const [cart, setCart] = useState(pizzaCart);
 
     const { cart, total, addToCart, removeFromCart } = useContext(CartContext);
+
+    /*  obtenemos el token */
+    const { token } = useContext(UserContext);
 
     /*
     const aumentarCantidad = (id) => {
@@ -72,7 +77,15 @@ const Cart = () => {
 
             <div className="mt-4">
                 <h2 className="fw-bold">Total: ${total.toLocaleString()}</h2>
-                <button className="btn btn-dark mt-2 px-4">Pagar</button>
+
+                {/* Si NO hay token -botón deshabilitado */}
+                <button 
+                    className="btn btn-dark mt-2 px-4"
+                    disabled={!token}
+                >
+                    Pagar
+                </button>
+
             </div>
         </div>
     );

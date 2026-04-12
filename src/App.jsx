@@ -1,8 +1,14 @@
 import './App.css'
 import Navbar from './components/navbar/Navbar'
 import Footer from './components/footer/Footer'
-import { Routes, Route } from 'react-router-dom'
 
+/*  rutas */
+import { Routes, Route, Navigate } from 'react-router-dom'
+
+/* Hook para usar el contexto */
+import { useContext } from 'react'
+
+/* Páginas */
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
@@ -11,26 +17,97 @@ import Pizza from './pages/Pizza';
 import Profile from './pages/Profile';
 import NotFound from './pages/NotFound';
 
+/* Contexto de usuario */
+import { UserContext } from './context/UserContext';
+
+
+/* =========================
+   RUTA PROTEGIDA
+   =========================
+   - Solo deja pasar si hay token
+   - Si NO hay token → redirige a login
+*/
+function ProtectedRoute({ children }) {
+  const { token } = useContext(UserContext);
+
+  return token 
+    ? children 
+    : <Navigate to="/login" replace />;
+}
+
+
+/* =========================
+   RUTA SOLO PÚBLICA
+   =========================
+   - Si el usuario YA está logueado
+     NO puede entrar a login/register
+   - Se redirige al HOME
+*/
+function PublicOnlyRoute({ children }) {
+  const { token } = useContext(UserContext);
+
+  return token 
+    ? <Navigate to="/" replace /> 
+    : children;
+}
+
 
 function App() {
   return (
     <>
+      {/* Navbar siempre visible */}
       <Navbar />
+
       <Routes>
+
+        {/* Página principal */}
         <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+
+        {/*  Registro (solo si NO está logueado) */}
+        <Route
+          path="/register"
+          element={
+            <PublicOnlyRoute>
+              <Register />
+            </PublicOnlyRoute>
+          }
+        />
+
+        {/* Login (solo si NO está logueado) */}
+        <Route
+          path="/login"
+          element={
+            <PublicOnlyRoute>
+              <Login />
+            </PublicOnlyRoute>
+          }
+        />
+
+        {/* Carrito (acceso libre) */}
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pizza/p001" element={<Pizza />} />
-        <Route path="/profile" element={<Profile />} />
+
+        {/*  Detalle de pizza con parámetro dinámico */}
+        <Route path="/pizza/:id" element={<Pizza />} />
+
+        {/* Perfil (protegido) */}
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Ruta no encontrada */}
         <Route path="*" element={<NotFound />} />
+
       </Routes>
+
+      {/* Footer siempre visible */}
       <Footer />
     </>
   )
 }
 
 export default App;
-
-
-
